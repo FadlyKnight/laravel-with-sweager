@@ -19,5 +19,9 @@ class User extends Authenticatable
     protected $hidden = [
          'password', 'remember_token',
     ];
+
+    public function scopeSelectImportant(){
+        return $this->select('id','name','email','role','password');
+    }
     
 }

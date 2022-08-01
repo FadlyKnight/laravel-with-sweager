@@ -19,27 +19,27 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group([
     'prefix' => 'v1', 
-    // 'as' => 'api.', 
+    'as' => 'api.', 
     'namespace' => 'Api\V1', 
   ], function () {
 
-    Route::post('/login', 'AuthController@login');
-    Route::post('/logout', 'AuthController@logout')->middleware(['auth:api']);
+    Route::post('/login', 'AuthController@login')->name('login');
+    Route::post('/logout', 'AuthController@logout')->name('logout')->middleware(['auth:api']);
     Route::group([
         'prefix' => 'candidate',
-        'as' => 'candidate', 
+        'as' => 'candidate.', 
         'middleware' => ['auth:api']
     ], function(){
         Route::group([
             'middleware'=> ['role:Senior HRD,HRD']
         ], function(){
-            Route::get('/', 'CandidateController@index');
-            Route::get('/{candidate}', 'CandidateController@show');
+            Route::get('/', 'CandidateController@index')->name('index');
+            Route::get('/{candidate}', 'CandidateController@show')->name('show');
         });
         Route::group(['role:Senior HRD'], function(){
-            Route::post('/', 'CandidateController@store');
-            Route::put('/{candidate}', 'CandidateController@update');
-            Route::delete('/{candidate}', 'CandidateController@destroy');
+            Route::post('/', 'CandidateController@store')->name('store');
+            Route::put('/{candidate}', 'CandidateController@update')->name('update');
+            Route::delete('/{candidate}', 'CandidateController@destroy')->name('destroy');
         });
     });
 

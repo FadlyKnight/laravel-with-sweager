@@ -11,6 +11,6 @@ class CandidateSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory('App\Candidate', 10)->create();
     }
 }

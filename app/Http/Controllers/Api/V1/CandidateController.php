@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCandidate;
+use App\Http\Requests\UpdateCandidate;
 use App\Interfaces\CandidateRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class CandidateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreCandidate  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCandidate $request)
@@ -54,11 +55,11 @@ class CandidateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateCandidate  $request
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCandidate $request, $id)
     {
         return response()->success($this->candidateRepository->updateCandidate($id, $request->all()), 'Success Update Candidate');
     }

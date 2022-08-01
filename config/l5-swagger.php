@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'SImple Candidate App',
+                'title' => 'Simple Candidate App',
             ],
 
             'routes' => [
