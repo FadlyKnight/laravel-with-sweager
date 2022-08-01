@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Simple Candidate App",
-        "description": "Simple Candidate App wiht simple CRUD",
+        "description": "Simple Candidate App with simple CRUD",
         "contact": {
             "email": "fadlyknight@gmail.com"
         },
@@ -70,28 +70,550 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "Success Login"
                     }
                 }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign out",
+                "description": "sign out or revoke the current token",
+                "operationId": "5660f1ae61b95f0283dfc205d5ffdad5",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You have been successfully logged out!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/candidate": {
+            "get": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Get list of candidate",
+                "description": "Returns list of candidate",
+                "operationId": "getCandidatesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "All Candidates"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Candidate"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Store new Candidate",
+                "description": "Returns Candidate data",
+                "operationId": "storeCandidate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCandidate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Create Candidate"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidate"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/candidate/{id}": {
+            "get": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Get candidate Information",
+                "description": "Returns candidate Information",
+                "operationId": "getCandidateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Candidate id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "All Candidates"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidate"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Update candidate Information",
+                "description": "Update candidate Information",
+                "operationId": "updateCandidateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Candidate id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCandidate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Create Candidate"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidate"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Delete candidate data",
+                "description": "Remove candidate data",
+                "operationId": "deleteCandidateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Candidate id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Delete Candidate"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         }
     },
     "components": {
+        "schemas": {
+            "Candidate": {
+                "title": "Candidate",
+                "description": "Candidate model",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": ""
+                    },
+                    "creator_id": {
+                        "type": "number",
+                        "example": ""
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "education": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "format": "date",
+                        "example": ""
+                    },
+                    "experience": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "last_position": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "applied": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "top_skill": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "resume": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date",
+                        "example": ""
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date",
+                        "example": ""
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Candidate"
+                }
+            },
+            "StoreCandidate": {
+                "title": "Store Candidate request",
+                "description": "Store Candidate request body data",
+                "required": [
+                    "name",
+                    "education",
+                    "birthday",
+                    "experience",
+                    "last_position",
+                    "applied",
+                    "top_skill",
+                    "email",
+                    "phone",
+                    "resume"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "Alia Stanton II"
+                    },
+                    "education": {
+                        "description": "education",
+                        "format": "string",
+                        "default": "Politeknik"
+                    },
+                    "birthday": {
+                        "description": "birthday",
+                        "format": "date",
+                        "default": "1992-06-04"
+                    },
+                    "experience": {
+                        "description": "experience",
+                        "format": "string",
+                        "default": "5 Year"
+                    },
+                    "last_position": {
+                        "description": "last_position",
+                        "format": "string",
+                        "default": "Eligibility Interviewer"
+                    },
+                    "applied": {
+                        "description": "applied",
+                        "format": "string",
+                        "default": "Middle School Teacher"
+                    },
+                    "top_skill": {
+                        "description": "top_skill",
+                        "format": "string",
+                        "default": "Laravel, Mysql, PostgreSQL, Codeigniter, Java"
+                    },
+                    "email": {
+                        "description": "email",
+                        "format": "string",
+                        "default": ""
+                    },
+                    "phone": {
+                        "description": "phone",
+                        "format": "string",
+                        "default": ""
+                    },
+                    "resume": {
+                        "description": "resume",
+                        "type": "file"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateCandidate": {
+                "title": "Update Candidate request",
+                "description": "Update Candidate request body data",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "Alia Stanton II"
+                    },
+                    "education": {
+                        "description": "education",
+                        "format": "string",
+                        "default": "Politeknik"
+                    },
+                    "birthday": {
+                        "description": "birthday",
+                        "format": "date",
+                        "default": "1992-06-04"
+                    },
+                    "experience": {
+                        "description": "experience",
+                        "format": "string",
+                        "default": "5 Year"
+                    },
+                    "last_position": {
+                        "description": "last_position",
+                        "format": "string",
+                        "default": "Eligibility Interviewer"
+                    },
+                    "applied": {
+                        "description": "applied",
+                        "format": "string",
+                        "default": "Middle School Teacher"
+                    },
+                    "top_skill": {
+                        "description": "top_skill",
+                        "format": "string",
+                        "default": "Laravel, Mysql, PostgreSQL, Codeigniter, Java"
+                    },
+                    "email": {
+                        "description": "email",
+                        "format": "string",
+                        "default": ""
+                    },
+                    "phone": {
+                        "description": "phone",
+                        "format": "string",
+                        "default": ""
+                    },
+                    "resume": {
+                        "description": "resume",
+                        "type": "file"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "responses": {
             "401": {
-                "description": "Wrong credentials response",
+                "description": "Unauthenticated.",
                 "content": {
                     "application/json": {
                         "schema": {
                             "properties": {
                                 "message": {
                                     "type": "string",
-                                    "example": "User does not exist / Password mismatch"
+                                    "example": "Unauthenticated."
                                 }
                             },
                             "type": "object"
                         }
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },

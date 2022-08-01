@@ -38,10 +38,6 @@ class AuthController extends Controller
      * @OA\Response(
      *    response=200,
      *    description="Success Login",
-     *      @OA\Property( 
-     *          property="user",        
-     *          ref="#/components/schemas/LoginResponseResource"
-     *      )
      *     )
      * ),
      */
@@ -60,7 +56,31 @@ class AuthController extends Controller
             return response()->error(null, 'User does not exist / Password mismatch');
         }
     }
-
+    
+    /**
+     * @OA\Post(
+     * path="/logout",
+     * summary="Sign out",
+     * security={{"bearer":{}}},
+     * description="sign out or revoke the current token",
+     * tags={"auth"},
+     * @OA\Response(
+     *    response=200,
+     *    description="Successfully logged out",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="You have been successfully logged out!")
+     *        )
+     *     ),
+     * ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Unauthenticated.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *        )
+     *     ),
+     * ),
+     */
     public function logout (Request $request) {
         $token = $request->user()->token();
         $token->revoke();

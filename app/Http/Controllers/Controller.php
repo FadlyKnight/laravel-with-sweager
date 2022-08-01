@@ -11,7 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *      version="1.0.0",
  *      title="Simple Candidate App",
- *      description="Simple Candidate App wiht simple CRUD",
+ *      description="Simple Candidate App with simple CRUD",
  *      @OA\Contact(
  *          email="fadlyknight@gmail.com"
  *      ),
@@ -25,7 +25,7 @@ use Illuminate\Routing\Controller as BaseController;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
  * )
-
+ *
 *
 * @OA\Tag(
 *     name="Candidate",
