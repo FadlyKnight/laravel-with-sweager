@@ -13,7 +13,7 @@ class Helper {
         $tipe_file = $directory;
         $filename_foto            = $dir . '/' . Str::random(20) . '_' . date('d') . '_' . md5(time()) . $tipe_file.'.' . $ext;
 
-        $file->move(storage_path('public/'.$dir), $filename_foto);
+        $file->move(storage_path('app/public/'.$dir), $filename_foto);
         return $filename_foto;
     }
 }
